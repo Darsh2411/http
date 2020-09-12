@@ -1,0 +1,67 @@
+<section>
+    <a
+        href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Keep-Alive">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Keep-Alive</a>
+
+    <h1>Keep-Alive</h1>
+    <p>The Keep-Alive general header allows the sender to hint about how the connection may be used to set a timeout and
+        a maximum amount of requests.</p>
+    <p class="warning">The Connection header needs to be set to "keep-alive" for this header to have any meaning.</p>
+    <p class="warning">Connection-specific header fields such as Connection and Keep-Alive are prohibited in HTTP/2.
+        Chrome and Firefox ignore them in HTTP/2 responses, but Safari conforms to the HTTP/2 spec requirements and
+        won’t load any response which contains them.</p>
+</section>
+
+<section>
+    <h2>Syntax</h2>
+    <pre><code>
+        Keep-Alive: parameters
+    </code></pre>
+</section>
+<section>
+    <h2>Directives</h2>
+    <dl>
+        <dt>parameters</dt>
+        <dd>
+            A comma-separated list of parameters, each consisting of an identifier and a value separated by the equal
+            sign ('='). The following identifiers are possible:
+            <br>
+            <ul>
+                <li>timeout: indicating the minimum amount of time an idle connection has to be kept opened (in
+                    seconds). Note that timeouts longer than the TCP timeout may be ignored if no keep-alive TCP message
+                    is set at the transport level.</li>
+                <li>max: indicating the maximum number of requests that can be sent on this connection before closing
+                    it. Unless 0, this value is ignored for non-pipelined connections as another request will be sent in
+                    the next response. An HTTP pipeline can use it to limit the pipelining.</li>
+            </ul>
+        </dd>
+    </dl>
+</section>
+<section>
+    <h2>Examples</h2>
+    <p>A response containing a Keep-Alive header:</p>
+    <pre><code>
+        HTTP/1.1 200 OK
+Connection: Keep-Alive
+Content-Encoding: gzip
+Content-Type: text/html; charset=utf-8
+Date: Thu, 11 Aug 2016 15:23:13 GMT
+Keep-Alive: timeout=5, max=1000
+Last-Modified: Mon, 25 Jul 2016 04:32:39 GMT
+Server: Apache
+
+(body)
+    </code></pre>
+</section>
+<section>
+    <h2></h2>
+</section>
+<section>
+    <h3></h3>
+</section>
+<section>
+    <h4></h4>
+</section>
+
+<section>
+    <h4></h4>
+</section>

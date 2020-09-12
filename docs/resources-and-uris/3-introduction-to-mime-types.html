@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>They Call it Home</title>
+    <meta name="author" content="xutai">
+    <meta name="description" content="The homepage aims to provide complete author's personal projects and knowledge">
+    <base href="" target="_blank">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <!-- <link rel="preload" href="/styles/normalize.css" as="style"> -->
+    <link rel="stylesheet" href="/styles/normalize.css">
+    <!-- <link rel="preload" href="/styles/common.css" as="style"> -->
+    <link rel="stylesheet" href="/styles/common.css">
+    
+    
+    <script src="/scripts/imageChanger.js" defer></script>
+    
+    <!--[if lte IE 8]>
+        <script src="js/browser_support/ie-fix.js"></script>
+        <link href="css/browser_support" rel="stylesheet" type="text/css">
+    <![endif]-->
+    
+    
+    
+
+    <!-- <link rel="preload" href="js/dom/change_style.js" as="script"> -->
+    <!-- <script src="js/dom/change_style.js" defer></script> -->
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>MIME types (IANA media types)</h1>
+
+
+            <form class="userinfo header" role="search">
+                <input type="text" id="loginInput" name="login">
+                <p>
+                    <span class="username"></span>
+                    <span><a href="" class="logout" style="display: none;">logout</a></span>
+                    <span><a href="/login" class="login">login</a></span>
+                    <span><a href="/register" class="register">register</a></span>
+                </p>
+
+            </form>
+
+
+            <nav class="header">
+                <ul>
+                    <li><a href="/">home</a></li>
+                    <li><a href="/pages/web-development/job/index.html">job</a></li>
+                    <li><a href="/pages/life/index.html">life</a></li>
+                    <li><a href="/pages/gaming/index.html">gaming</a></li>
+                </ul>
+            </nav>
+
+            <img src="/resources/images/cover_31.jpg" alt="cover_lanscape" class="image_cover header">
+        </header>
+        <main>
+            <article role="article">
+                <div class="content">
+                    <nav>
+                        <ul>
+                            <li><a href="/pages/web-development/http/docs/1-an-overview-of-http.html">1-an-overview-of-http.html</a>
+                            </li>
+                            <li><a href="/pages/web-development/http/docs/2-http-caching.html">2-http-caching.html</a></li>
+                            <li><a href="/pages/web-development/http/docs/3-http-cookies.html">3-http-cookies.html</a></li>
+                            <li><a
+                                    href="/pages/web-development/http/docs/4-cross-origin-resource-sharing.html">4-cross-origin-resource-sharing.html</a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <p>A <strong>media type</strong> (also known as a <strong>Multipurpose Internet Mail Extensions or
+                            MIME type</strong> ) is a standard that indicates the nature and format of a document, file,
+                        or assortment of bytes. </p>
+                    <p class="important">
+                        Browsers use the MIME type, not the file extension, to determine how to process a URL, so it's
+                        important that web servers send the correct MIME type in the response's Content-Type header. If
+                        this is not correctly configured, browsers are likely to misinterpret the contents of files and
+                        sites will not work correctly, and downloaded files may be mishandled.
+                    </p>
+                    <section>
+                        <h2>structure of a MIME type</h2>
+                        <code>type/subtype</code>
+                        <p>The type represents the general category into which the data type falls, such as video or
+                            text. </p>
+                        <p>The subtype identifies the exact kind of data of the specified type the MIME type represents.
+                        </p>
+                        <ul>
+                            <li>text/plain (plain text)</li>
+                            <li>text/html (HTML source code)</li>
+                            <li>text/calendar (for iCalendar/.ics)</li>
+                        </ul>
+                        <code>type/subtype;parameter=value</code>
+                        <p> for any MIME type whose main type is text, the optional charset parameter can be used to
+                            specify the character set used for the characters in the data. If no charset is specified,
+                            the default is ASCII (US-ASCII) unless overridden by the user agent's settings. </p>
+                        <p>An optional parameter can be added to provide additional details:</p>
+                        <ul>
+                            <li>text/plain;charset=UTF-8</li>
+                        </ul>
+                        <p>MIME types are case-insensitive but are traditionally written in lowercase, with the
+                            exception of parameter values, whose case may or may not have specific meaning.</p>
+                        <section>
+                            <h3>types</h3>
+                            <p>There are two classes of type: <strong>discrete</strong> adj. 离散的，不连续的 and
+                                <strong>multipart</strong>.</p>
+                            <p>Discrete types are types which represent a single file or medium, such as a single text
+                                or music file, or a single video. </p>
+                            <p>A multipart type is one which represents a document that's comprised of multiple
+                                component parts, each of which may have its own individual MIME type;</p>
+                            <p>or, a multipart type may encapsulate multiple files being sent together in one
+                                transaction. For example, multipart MIME types are used when attaching multiple files to
+                                an email.</p>
+                            <section>
+                                <h4>discrete types</h4>
+                                <dl>
+                                    <dt>application</dt>
+                                    <dd>octet [计] 八位字节.Any kind of binary data that doesn't fall explicitly into one of
+                                        the other types; either data that will be executed or interpreted in some way or
+                                        binary data that requires a specific application or category of application to
+                                        use. Generic binary data (or binary data whose true type is unknown) is
+                                        application/octet-stream. Other common examples include application/pdf,
+                                        application/pkcs8, and application/zip.</dd>
+                                    <dt>audio</dt>
+                                    <dd>Audio or music data. Examples include audio/mpeg, audio/vorbis.</dd>
+                                    <dt>example</dt>
+                                    <dd>Reserved for use as a placeholder in examples showing how to use MIME types.
+                                        These should never be used outside of sample code listings and documentation.
+                                        example can also be used as a subtype; for instance, in an example related to
+                                        working with audio on the web, the MIME type audio/example can be used to
+                                        indicate that the type is a placeholder and should be replaced with an
+                                        appropriate one when using the code in the real world.</dd>
+                                    <dt>font</dt>
+                                    <dd>Font/typeface data. Common examples include font/woff, font/ttf, and font/otf.
+                                    </dd>
+                                    <dt>image</dt>
+                                    <dd>Image or graphical data including both bitmap and vector still images as well as
+                                        animated versions of still image formats such as animated GIF or APNG. Common
+                                        examples are image/jpeg, image/png, and image/svg+xml.</dd>
+                                    <dt>model</dt>
+                                    <dd>Model data for a 3D object or scene. Examples include model/3mf and model/vml.
+                                    </dd>
+                                    <dt>text</dt>
+                                    <dd>Text-only data including any human-readable content, source code, or textual
+                                        data such as comma-separated value (CSV) formatted data. Examples include
+                                        text/plain, text/csv, and text/html.</dd>
+                                    <dt>video</dt>
+                                    <dd>Video data or files, such as MP4 movies (video/mp4).</dd>
+                                </dl>
+                            </section>
+                            <ul>
+                                <li>application/octet-stream</li>
+                                <li>application/pdf</li>
+                                <li>application/pkcs8</li>
+                                <li>application/zip</li>
+                                <li>audio/mpeg</li>
+                                <li>audio/vorbis</li>
+                                <li>audio/example</li>
+                                <li>font/woff</li>
+                                <li>font/ttf</li>
+                                <li>font/otf</li>
+                                <li>image/jpeg</li>
+                                <li>image/png</li>
+                                <li>image/svg+xml</li>
+                                <li>model/3mf</li>
+                                <li>model/vml</li>
+                                <li>text/plain</li>
+                                <li>text/csv</li>
+                                <li>text/html</li>
+                                <li>video/mp4</li>
+                            </ul>
+                            <section>
+                                <h4>multipart types</h4>
+                                <p>Multipart types indicate a category of document broken into pieces, often with
+                                    different MIME types; </p>
+                                <p>they can also be used — especially in email scenarios — to represent multiple,
+                                    separate files which are all part of the same transaction.</p>
+                                <p>They represent a composite document.</p>
+                                <hr>
+                                <p>With the exception of <br>
+                                    multipart/form-data, used in the POST method of HTML Forms,and <br> 
+                                    multipart/byteranges, used with 206 Partial Content to send part of a document,
+                                </p>
+                                <p> HTTP doesn't handle multipart documents in a special way: the message is transmitted to the browser (which will likely show a "Save As" window if it doesn't know how to display the document).</p>
+                                <dl>
+                                    <dt>message</dt>
+                                    <dd>A message that encapsulates other messages. This can be used, for instance, to represent an email that includes a forwarded message as part of its data, or to allow sending very large messages in chunks as if it were multiple messages. Examples include message/rfc822 (for forwarded or replied-to message quoting) and message/partial to allow breaking a large message into smaller ones automatically to be reassembled by the recipient.</dd>
+                                    <dt>multipart</dt>
+                                    <dd>Data that is comprised of multiple components which may individually have different MIME types. Examples include multipart/form-data (for data produced using the FormData API) and multipart/byteranges (defined in RFC 7233: 5.4.1 and used with HTTP's 206 "Partial Content" response returned when the fetched data is only part of the content, such as is delivered using the Range header).</dd>
+                                </dl>
+                                <ul>
+                                    <li>message/rtc</li>
+                                    <li>message/partial</li>
+                                </ul>
+                            </section>
+                        </section>
+                    </section>
+                    <section>
+                        <h2>important MIME types for web developers</h2>
+                        <section>
+                            <h3>application/octet-stream</h3>
+                            <p>This is the default for binary files. As it means unknown binary file, browsers usually don't execute it, or even ask if it should be executed. They treat it as if the Content-Disposition header was set to attachment, and propose a "Save As" dialog.</p>
+                        </section>
+                        <section>
+                            <h3>text/plain</h3>
+                            <p>This is the default for textual files. Even if it really means "unknown textual file," browsers assume they can display it.</p>
+                            <p class="warning">Note that text/plain does not mean "any kind of textual data." If they expect a specific kind of textual data, they will likely not consider it a match. Specifically if they download a text/plain file from a <link> element declaring a CSS file, they will not recognize it as a valid CSS file if presented with text/plain. The CSS mime type text/css must be used.</p>
+                        </section>
+                        <section>
+                            <h3>text/css</h3>
+                            <p>CSS files used to style a Web page must be sent with text/css. If a server doesn't recognize the .css suffix for CSS files, it may send them with text/plain or application/octet-stream MIME types. If so, they won't be recognized as CSS by most browsers and will be ignored.</p>
+                        </section>
+                        <section>
+                            <h3>text/html</h3>
+                            <p>All HTML content should be served with this type. Alternative MIME types for XHTML (like application/xhtml+xml) are mostly useless nowadays.</p>
+                            <p class="warning">Note: Use application/xml or application/xhtml+xml if you want XML’s strict parsing rules, &lt;![CDATA[…]]&gt; sections, or elements that aren't from HTML/SVG/MathML namespaces.</p>
+                        </section>
+                        <section>
+                            <h3>text/javascript</h3>
+                            <p class="warning"> Even though any given user agent may support any or all of these, you should only use text/javascript. It's the only MIME type guaranteed to work now and into the future.</p>
+                            <p>Some content you find may have a charset parameter at the end of the text/javascript media type, to specify the character set used to represent the code's content. This is not valid, and in most cases will result in a script not being loaded.</p>
+                        </section>
+                        <section>
+                            <h3>image types</h3>
+                        </section>
+                        <section>
+                            <h3>audio and video types</h3>
+                        </section>
+                        <section>
+                            <h3>multipart/form-data</h3>
+                            <p>The multipart/form-data type can be used when sending the values of a completed HTML Form from browser to server.</p>
+                            <p>s a multipart document format, it consists of different parts, delimited by a boundary (a string starting with a double dash --). </p>
+                            <p>Each part is its own entity with its own HTTP headers, Content-Disposition, and Content-Type for file uploading fields.</p>
+                            <pre>
+Content-Type: multipart/form-data; boundary=aBoundaryString
+(other headers associated with the multipart document as a whole)
+
+--aBoundaryString
+Content-Disposition: form-data; name="myFile"; filename="img.jpg"
+Content-Type: image/jpeg
+
+(data)
+--aBoundaryString
+Content-Disposition: form-data; name="myField"
+
+(data)
+--aBoundaryString
+(more subparts)
+--aBoundaryString--
+                            </pre>
+                        </section>
+                        <section>
+                            <h3>multipart/byteranges</h3>
+                        </section>
+                    </section>
+                    <section>
+                        <h2>importance of setting the correct MIME type</h2>
+                    </section>
+                    <section>
+                        <h2>MIME sniffing</h2>
+                    </section>
+                    <section>
+                        <h2>other methods of conveying document type</h2>
+                    </section>
+                    <section>
+                        <h2>see also</h2>
+                    </section>
+                    <section>
+                        <h2></h2>
+                    </section>
+                    <section>
+                        <h3></h3>
+                    </section>
+                    <section>
+                        <h4></h4>
+                    </section>
+                </div>
+                <aside class="extra">
+                    <nav>
+                        <ul>
+                            <li><a href="/pages/experiment.html">experiment</a></li>
+                            <li><a href="/pages/video.html">video</a></li>
+                        </ul>
+                    </nav>
+                </aside>
+            </article>
+            <aside class="sidebar" role="complementary">
+                <nav>
+                    <ul>
+                        <li><a href="/pages/web-development/http/index.html">http</a></li>
+                        <li><a href="/pages/web-development/nodejs/index.html">nodejs</a></li>
+                    </ul>
+                </nav>
+            </aside>
+        </main>
+        <footer>
+            <div class="count">
+                <p class="visit_count"></p>
+                <p class="click_count"></p>
+                <p class="visit_individual_count"></p>
+            </div>
+            <p>&copy;2020 xutai</p>
+            <p><a href="mailto:2518128561@qq.com">contact me</a></p>
+        </footer>
+    </div>
+</body>
+
+</html>

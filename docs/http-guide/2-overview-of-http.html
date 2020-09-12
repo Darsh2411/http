@@ -1,0 +1,129 @@
+<section>
+    <h2>components of http-based systems</h2>
+    <section>
+        <h3>client: the user-agent</h3>
+    </section>
+    <section>
+        <h3>the web server</h3>
+    </section>
+    <section>
+        <h3>proxies</h3>
+        <p> Proxies may perform numerous functions:</p>
+        <ul>
+            <li>caching (the cache can be public or private, like the browser cache)</li>
+            <li>filtering (like an antivirus scan or parental controls)</li>
+            <li>load balancing (to allow multiple servers to serve the different requests)</li>
+            <li>authentication (to control access to different resources)</li>
+            <li>logging (allowing the storage of historical information)</li>
+        </ul>
+    </section>
+</section>
+<section>
+    <h2>basic aspects of http</h2>
+    <section>
+        <h3>http is simple</h3>
+    </section>
+    <section>
+        <h3>http is extensible</h3>
+    </section>
+    <section>
+        <h3>http is stateless, but not sessionless</h3>
+        <p>HTTP is stateless: there is no link between two requests being successively carried out on the same
+            connection. </p>
+        <p>This immediately has the prospect of being problematic for users attempting to interact with certain pages
+            coherently adv.
+            连贯地；前后一致地；条理清楚地；互相偶合地；凝聚性地, for example, using e-commerce shopping baskets. </p>
+        <p class="question">what does this mean? interact with certain pages coherently, is there a best practice?
+            does it mean that you don't want every change will make a http request?
+        </p>
+        <p> But while the core of HTTP itself is stateless, HTTP cookies allow the use of stateful sessions. </p>
+        <p>Using header extensibility, HTTP Cookies are added to the workflow, allowing session creation on each HTTP
+            request to share the same context, or the same state.</p>
+    </section>
+    <section>
+        <h3>http and connections</h3>
+        <p>A connection is controlled at the transport layer, and therefore fundamentally out of scope for HTTP.</p>
+    </section>
+
+</section>
+<section>
+    <h2>what can be controlled by http</h2>
+    <dl>
+        <dt>caching</dt>
+        <dd>How documents are cached can be controlled by HTTP. The server can instruct proxies and clients, about what
+            to cache and for how long. The client can instruct intermediate cache proxies to ignore the stored document.
+        </dd>
+        <dt>relaxing the origin constraint</dt>
+        <dd>same origin
+            <p class="question">why it says "same origin" constraint is a burden to the server</p>
+        </dd>
+        <dt>authentication</dt>
+        <dd>WWW-Authenticate and similar headers, or by setting a specific session using HTTP cookies</dd>
+        <dt>Proxy and tunneling</dt>
+        <dd>Servers or clients are often located on intranets and hide their true IP address from other computers. HTTP
+            requests then go through proxies to cross this network barrier. Not all proxies are HTTP proxies. The SOCKS
+            protocol, for example, operates at a lower level. Other protocols, like ftp, can be handled by these
+            proxies.</dd>
+        <dt>sessions</dt>
+        <dd>Using HTTP cookies allows you to link requests with the state of the server. This creates sessions, despite
+            basic HTTP being a state-less protocol. This is useful not only for e-commerce shopping baskets, but also
+            for any site allowing user configuration of the output.
+            <p class="note">this mentions shopping basket, why? is that basket information saved in cookie then sent to
+                server?</p>
+        </dd>
+    </dl>
+
+</section>
+<section>
+    <h2>http flow</h2>
+    <ul>
+        <li>open a TCP connection</li>
+        <li>send an http message</li>
+        <li>read the response sent by the server</li>
+        <li>close or resue the connection for further requests</li>
+    </ul>
+</section>
+<section>
+    <h2>http messages</h2>
+    <p class="note">multiplex n. communicates two or more signals over a common channel</p>
+    <section>
+        <h3>requests</h3>
+        <ul>
+            <li>an http method</li>
+            <li>the path of the resource to fetch</li>
+            <li>the version of the http protocol</li>
+            <li>optional headers</li>
+            <li>or a body</li>
+        </ul>
+    </section>
+    <section>
+        <h3>responses</h3>
+        <ul>
+            <li>the version of the http protocol</li>
+            <li>a status code</li>
+            <li>a status message</li>
+            <li>http headers</li>
+            <li>optionally, a body</li>
+        </ul>
+    </section>
+</section>
+<section>
+    <h2>apis bsed on http</h2>
+    <p>XMLHttprequest API</p>
+    <p>Fetch API</p>
+    <p>server-sent events, EventSource interface, Event objects, events' type, onmessage event handler</p>
+</section>
+<section>
+    <h2>conclusion</h2>
+</section>
+<section>
+    <h2></h2>
+</section>
+
+<section>
+    <h3></h3>
+</section>
+
+<section>
+    <h4></h4>
+</section>

@@ -1,0 +1,86 @@
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers
+
+<section>
+    <h1>Access-Control-Allow-Headers</h1>
+    <p>The Access-Control-Allow-Headers response header is used in response to a preflight request which includes the Access-Control-Request-Headers to indicate which HTTP headers can be used during the actual request.</p>
+    <p>This header is required if the request has an Access-Control-Request-Headers header.</p>
+</section>
+
+<section>
+    <h2>Syntax</h2>
+</section>
+<section>
+    <h2>Directives</h2>
+</section>
+<section>
+    <h2>Examples</h2>
+    <section>
+        <h3>A custom header</h3>
+        <p>Here's an example of what an Access-Control-Allow-Headers header might look like. It indicates that in addition to the CORS-safelisted request headers, a custom header named X-Custom-Header is supported by CORS requests to the server.</p>
+        <pre><code>
+            Access-Control-Allow-Headers: X-Custom-Header
+        </code></pre>
+    </section>
+    <section>
+        <h3>Multiple headers</h3>
+        <p>This example shows Access-Control-Allow-Headers when it specifies support for multiple headers.</p>
+        <pre><code>
+            Access-Control-Allow-Headers: X-Custom-Header, Upgrade-Insecure-Requests
+        </code></pre>
+    </section>
+    <section>
+        <h3>Bypassing additional restrictions</h3>
+        <p>Although CORS-safelisted request headers are always allowed and don't usually need to be listed in Access-Control-Allow-Headers, listing them anyway will circumvent the additional restrictions that apply.</p>
+        <pre><code>
+            Access-Control-Allow-Headers: Accept
+        </code></pre>
+    </section>
+    <section>
+        <h3>Example preflight request</h3>
+        <p>Let's look at an example of a preflight request involving Access-Control-Allow-Headers.</p>
+        <section>
+            <h4>Request</h4>
+            <p>First, the request.  The preflight request is an OPTIONS request which includes some combination of the three preflight request headers: Access-Control-Request-Method, Access-Control-Request-Headers, and Origin, such as:</p>
+            <pre><code>
+                OPTIONS /resource/foo
+                Access-Control-Request-Method: DELETE
+                Access-Control-Request-Headers: origin, x-requested-with
+                Origin: https://foo.bar.org
+            </code></pre>
+        </section>
+        <section>
+            <h4>Response</h4>
+            <p>If the server allows CORS requests to use the DELETE method, it responds with an Access-Control-Allow-Methods response header, which lists DELETE along with the other methods it supports:</p>
+            <pre><code>
+                HTTP/1.1 200 OK
+                Content-Length: 0
+                Connection: keep-alive
+                Access-Control-Allow-Origin: https://foo.bar.org
+                Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE
+                Access-Control-Max-Age: 86400
+            </code></pre>
+            <p>If the requested method isn't supported, the server will respond with an error.</p>
+        </section>
+    </section>
+</section>
+<section>
+    <h2></h2>
+</section>
+<section>
+    <h2></h2>
+</section>
+<section>
+    <h2></h2>
+</section>
+<section>
+    <h2></h2>
+</section>
+<section>
+    <h3></h3>
+</section>
+<section>
+    <h4></h4>
+</section>
+<section>
+    <h5></h5>
+</section> 

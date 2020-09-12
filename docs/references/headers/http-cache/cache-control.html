@@ -1,0 +1,180 @@
+<section>
+    <h2>Cache-Control</h2>
+    <a
+        href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control</a>
+    <p>The Cache-Control HTTP header holds directives (instructions) for caching in both requests and responses. A given
+        directive in a request does not mean the same directive should be in the response.</p>
+</section>
+
+<ul>
+    <li>Case-insensitive, but lowercase is recommended.</li>
+    <li>Multiple directives are comma-separated.</li>
+    <li>Some directives have an optional argument, which can be either a token or a quoted-string. (See spec for
+        definitions)</li>
+</ul>
+
+
+
+<section>
+    <h2>Syntax</h2>
+    <p>Caching directives have the following rules to be valid:</p>
+    <ul>
+        <li>Case-insensitive, but lowercase is recommended.</li>
+        <li>Multiple directives are comma-separated.</li>
+        <li>Some directives have an optional argument, which can be either a token or a quoted-string. (See spec for
+            definitions)</li>
+    </ul>
+    <section>
+        <h3>Cache request directives</h3>
+        <p>Standard Cache-Control directives that can be used by the client in an HTTP request.</p>
+        <pre><code>
+                Cache-Control: max-age=&lt;seconds&gt;
+                Cache-Control: max-stale[=&lt;seconds&gt;]
+                Cache-Control: min-fresh=&lt;seconds&gt;
+                Cache-Control: no-cache 
+                Cache-Control: no-store
+                Cache-Control: no-transform
+                Cache-Control: only-if-cached
+        </code></pre>
+    </section>
+    <section>
+        <h3>Cache response directives</h3>
+        <p>Standard Cache-Control directives that can be used by the server in an HTTP response.</p>
+        <pre><code>
+            Cache-Control: must-revalidate
+            Cache-Control: no-cache
+            Cache-Control: no-store
+            Cache-Control: no-transform
+            Cache-Control: public
+            Cache-Control: private
+            Cache-Control: proxy-revalidate
+            Cache-Control: max-age=&lt;seconds&gt;
+            Cache-Control: s-maxage=&lt;seconds&gt;
+        </code></pre>
+    </section>
+    <section>
+        <h3>Extension Cache-Control directives</h3>
+        <p>Extension Cache-Control directives are not part of the core HTTP caching standards document. Check the
+            compatibility table for their support; user-agents that don't recognize them should ignore them.</p>
+        <pre><code>
+            Cache-Control: immutable 
+            Cache-Control: stale-while-revalidate=&lt;seconds&gt;
+            Cache-Control: stale-if-error=&lt;seconds&gt;
+        </code></pre>
+    </section>
+
+</section>
+<section>
+    <h2>Directives
+    </h2>
+    <section>
+        <h3>Cacheability</h3>
+        <p>A response is normally cached by the browser if:</p>
+        <ul>
+            <li>it has a status code of 301, 302, 307, 308, or 410 and</li>
+            <li>Cache-Control does not have no-store, or if proxy, does not have private and</li>
+            <li>Authorization is unset</li>
+            <li>either
+                <ul>
+                    <li>has a status code of 301, 302, 307, 308, or 410 or</li>
+                    <li>has public, max-age or s-maxage in Cache-Control or</li>
+                    <li>has Expires set</li>
+                </ul>
+            </li>
+        </ul>
+        <dl>
+            <dt>public</dt>
+            <dd>The response may be stored by any cache, even if the response is normally non-cacheable.</dd>
+            <dt>private</dt>
+            <dd>The response may be stored only by a browser's cache, even if the response is normally non-cacheable. If you mean to not store the response in any cache, use no-store instead. This directive is not effective in preventing caches from storing your response.</dd>
+            <dt>no-cache</dt>
+            <dd>The response may be stored by any cache, even if the response is normally non-cacheable. However, the stored response MUST always go through validation with the origin server first before using it, therefore, you cannot use no-cache in-conjunction with immutable. If you mean to not store the response in any cache, use no-store instead. This directive is not effective in preventing caches from storing your response.</dd>
+            <dt>no-store</dt>
+            <dd>The response may not be stored in any cache. Although other directives may be set, this alone is the only directive you need in preventing cached responses on modern browsers. max-age=0 is already implied. Setting must-revalidate does not make sense because in order to go through revalidation you need the response to be stored in a cache, which no-store prevents.</dd>
+        </dl>
+    </section>
+    <section>
+        <h3>Expiration</h3>
+        <dl>
+            <dt>max-age=&lt;seconds&gt;</dt>
+            <dd>The maximum amount of time a resource is considered fresh. Unlike Expires, this directive is relative to the time of the request.</dd>
+            <dt>s-maxage=&lt;seconds&gt;</dt>
+            <dd>Overrides max-age or the Expires header, but only for shared caches (e.g., proxies). Ignored by private caches.</dd>
+            <dt>max-stale[=&lt;seconds&gt;]</dt>
+            <dd>Indicates the client will accept a stale response. An optional value in seconds indicates the upper limit of staleness the client will accept.</dd>
+            <dt>min-fresh=&lt;seconds&gt;</dt>
+            <dd>Indicates the client wants a response that will still be fresh for at least the specified number of seconds.</dd>
+            <dt>stale-while-revalidate=&lt;seconds&gt;</dt>
+            <dd></dd>
+            <dt>stale-if-error=&lt;seconds&gt;</dt>
+            <dd></dd>
+        </dl>
+    </section>
+    <section>
+        <h3>Revalidation and reloading</h3>
+        <dl>
+            <dt>must-revalidate</dt>
+            <dd>Indicates that once a resource becomes stale, caches must not use their stale copy without successful validation on the origin server.</dd>
+            <dt>proxy-revalidate</dt>
+            <dd>Like must-revalidate, but only for shared caches (e.g., proxies). Ignored by private caches.</dd>
+            <dt>immutable</dt>
+            <dd>Indicates that the response body will not change over time. The resource, if unexpired, is unchanged on the server and therefore the client should not send a conditional revalidation for it (e.g. If-None-Match or If-Modified-Since) to check for updates, even when the user explicitly refreshes the page. Clients that aren't aware of this extension must ignore them as per the HTTP specification. In Firefox, immutable is only honored on https:// transactions. For more information, see also this blog post.</dd>
+        </dl>
+    </section>
+    <section>
+        <h3>Other</h3>
+        <dl>
+            <dt>no-transform</dt>
+            <dd>An intermediate cache or proxy cannot edit the response body, Content-Encoding, Content-Range, or Content-Type. It therefore forbids a proxy or browser feature, such as Google’s Web Light, from converting images to minimize data for a cache store or slow connection.</dd>
+            <dt>only-if-cached</dt>
+            <dd>Set by the client to indicate "do not use the network" for the response. The cache should either respond using a stored response, or respond with a 504 status code. Conditional headers such as If-None-Match should not be set. There is no effect if only-if-cached is set by a server as part of a response.</dd>
+        </dl>
+    </section>
+
+</section>
+<section>
+    <h2>Examples</h2>
+    <section>
+        <h3>Preventing caching</h3>
+        <p>To disable caching of a resource, you can send the following response header:</p>
+        <pre><code>
+            Cache-Control: no-store
+        </code></pre>
+    </section>
+    <section>
+        <h3>Caching static assets</h3>
+        <p>For the files in the application that will not change, you can usually add aggressive caching by sending the response header below. This includes static files that are served by the application such as images, CSS files and JavaScript files, for example. In addition, see also the Expires header.</p>
+        <pre><code>
+            Cache-Control: public, max-age=604800, immutable
+        </code></pre>
+    </section>
+    <section>
+        <h3>Requiring revalidation</h3>
+        <p>Specifying no-cache or max-age=0 indicates that clients can cache a resource and must revalidate each time before using it. This means HTTP request occurs each time, but it can skip downloading HTTP body if the content is valid.</p>
+        <pre><code>
+            Cache-Control: no-cache
+            Cache-Control: no-cache, max-age=0
+        </code></pre>
+    </section>
+</section>
+<section>
+    <h2></h2>
+</section>
+<section>
+    <h2></h2>
+</section>
+<section>
+    <h2></h2>
+</section>
+<section>
+    <h3></h3>
+</section>
+<section>
+    <h3></h3>
+</section>
+<section>
+    <h3></h3>
+</section>
+<section>
+    <h4></h4>
+</section>

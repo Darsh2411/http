@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>They Call it Home</title>
+    <meta name="author" content="xutai">
+    <meta name="description" content="The homepage aims to provide complete author's personal projects and knowledge">
+    <base href="" target="_blank">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <!-- <link rel="preload" href="/styles/normalize.css" as="style"> -->
+    <link rel="stylesheet" href="/styles/normalize.css">
+    <!-- <link rel="preload" href="/styles/common.css" as="style"> -->
+    <link rel="stylesheet" href="/styles/common.css">
+    
+    
+    <script src="/scripts/imageChanger.js" defer></script>
+    
+    <!--[if lte IE 8]>
+        <script src="js/browser_support/ie-fix.js"></script>
+        <link href="css/browser_support" rel="stylesheet" type="text/css">
+    <![endif]-->
+    
+    
+    
+
+    <!-- <link rel="preload" href="js/dom/change_style.js" as="script"> -->
+    <!-- <script src="js/dom/change_style.js" defer></script> -->
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1 class="header">Design You Life</h1>
+
+
+            <form class="userinfo header" role="search">
+                <input type="text" id="loginInput" name="login">
+                <p>
+                    <span class="username"></span>
+                    <span><a href="" class="logout" style="display: none;">logout</a></span>
+                    <span><a href="/login" class="login">login</a></span>
+                    <span><a href="/register" class="register">register</a></span>
+                </p>
+
+            </form>
+
+
+            <nav class="header">
+                <ul>
+                    <li><a href="/">home</a></li>
+                    <li><a href="/pages/web-development/job/index.html">job</a></li>
+                    <li><a href="/pages/life/index.html">life</a></li>
+                    <li><a href="/pages/gaming/index.html">gaming</a></li>
+                </ul>
+            </nav>
+
+            <img src="/resources/images/cover_31.jpg" alt="cover_lanscape" class="image_cover header">
+        </header>
+        <main>
+            <article role="article">
+                <div class="content">
+                    <nav>
+                        <ul>
+                            <li><a href="/pages/web-development/http/docs/1-an-overview-of-http.html">1-an-overview-of-http.html</a></li>
+                            <li><a href="/pages/web-development/http/docs/2-http-caching.html">2-http-caching.html</a></li>
+                            <li><a href="/pages/web-development/http/docs/3-http-cookies.html">3-http-cookies.html</a></li>
+                            <li><a href="/pages/web-development/http/docs/4-cross-origin-resource-sharing.html">4-cross-origin-resource-sharing.html</a></li>
+                        </ul>
+                    </nav>
+                    <section>
+                        <h2>invention of the World Wide Web</h2>
+                    </section>
+                    <section>
+                        <h2>HTTP/0.9 - the one-line protocol</h2>
+                    </section>
+                    <section>
+                        <h2>HTTP/1.0 - building extensibility</h2>
+                    </section>
+                    <section>
+                        <h2>HTTP/1.1 - the standardized protocol</h2>
+                    </section>
+                    <section>
+                        <h2>more than 15 years of extensions</h2>
+                        <section>
+                            <h3>using http for secure transmissions</h3>
+                        </section>
+                        <section>
+                            <h3>using http for complex applications</h3>
+                            <p>1996 WebDAV</p>
+                            <hr>
+                            <p>representational state transfer (or REST), in 2000, a new pattern for using HTTP was designed</p>
+                            <p>The actions induced by the API were no more conveyed by new HTTP methods, but only by accessing specific URIs with basic HTTP/1.1 methods. This allowed any Web application to provide an API to allow retrieval and modification of its data without having to update the browsers or the servers: all what is needed was embedded in the files served by the Web sites through standard HTTP/1.1. The drawback of the REST model resides in the fact that each website defines its own non-standard RESTful API and has total control on it; unlike the *DAV extensions were clients and servers are interoperable. RESTful APIs became very common in the 2010s.</p>
+                            <hr>
+                            <p>2005 apis</p>
+                            <ul>
+                                <li>server-sent evens</li>
+                                <li>WebSocket</li>
+                            </ul>
+                        </section>
+                        <section>
+                            <h3>relaxing the security-model of the web</h3>
+                            <p>extendions: same-origin policy, cross-origin resource sharing, content security policy</p>
+                            <p>headers: do not track, x-frame-options, upgrade-insecure-requests</p>
+                        </section>
+                    </section>
+                    <section>
+                        <h2>HTTP/2 - a protocol for greater performance</h2>
+                        <p>2010</p>
+                        <p>http/2 vs http/1.1</p>
+                        <ul>
+                            <li>binary protocal vs text</li>
+                            <li>multiplexed [通信] 多路复用 protocol</li>
+                            <li>compresses headers</li>
+                            <li>server populate data in a client cache</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Post-HTTP/2 evolution</h2>
+                        <p>2016</p>
+                        <ul>
+                            <li>Alt-Svc - smarter CDN caching mechanism</li>
+                            <li>Client-Hints</li>
+                            <li>security-related prefixes in Cookie header</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>HTTP/3 - HTTP over QUIC</h2>
+                    </section>
+                    <section>
+                        <h2></h2>
+                    </section>
+                    <section>
+                        <h3></h3>
+                    </section>
+                    <section>
+                        <h4></h4>
+                    </section>
+                </div>
+                <aside class="extra">
+                    <nav>
+                        <ul>
+                            <li><a href="/pages/experiment.html">experiment</a></li>
+                            <li><a href="/pages/video.html">video</a></li>
+                        </ul>
+                    </nav>
+                </aside>
+            </article>
+            <aside class="sidebar" role="complementary">
+                <nav>
+                    <ul>
+                        <li><a href="/pages/web-development/http/index.html">http</a></li>
+                        <li><a href="/pages/web-development/nodejs/index.html">nodejs</a></li>
+                    </ul>
+                </nav>
+            </aside>
+        </main>
+        <footer>
+            <div class="count">
+                <p class="visit_count"></p>
+                <p class="click_count"></p>
+                <p class="visit_individual_count"></p>
+            </div>
+            <p>&copy;2020 xutai</p>
+            <p><a href="mailto:2518128561@qq.com">contact me</a></p>
+        </footer>
+    </div>
+</body>
+
+</html>
